@@ -912,7 +912,7 @@ new_client() {
 	fi
 	if [[ "$specify_ip" =~ ^[yY]$ ]]; then
 		echo
-		read -rp "Enter IP address for the new client (e.g. 10.7.0.X): " client_ip
+		read -rp "Enter IP address for the new client (e.g. 10.7.0.0/24): " client_ip
 		octet=$(printf '%s' "$client_ip" | cut -d "." -f 4)
 		until [[ $client_ip =~ ^10\.7\.0\.([2-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-4])$ ]] \
 			&& ! grep AllowedIPs "$WG_CONF" | cut -d "." -f 4 | cut -d "/" -f 1 | grep -q "^$octet$"; do
@@ -921,7 +921,7 @@ new_client() {
 			else
 				echo "The IP address is already in use. Please choose another one."
 			fi
-			read -rp "Enter IP address for the new client (e.g. 10.7.0.X): " client_ip
+			read -rp "Enter IP address for the new client (e.g. 10.7.0.0/24): " client_ip
 			octet=$(printf '%s' "$client_ip" | cut -d "." -f 4)
 		done
 	fi
